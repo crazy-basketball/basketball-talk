@@ -2,17 +2,17 @@ import { create } from "zustand";
 import { v4 as uuidv4 } from "uuid";
 import { persist } from "zustand/middleware";
 
-type TodoItem = {
+interface ITodoItem {
   id: string;
   text: string;
   isCompleted: boolean;
-};
+}
 interface ItodoState {
-  todos: TodoItem[];
+  todos: ITodoItem[];
   addTodo: (newTodo: string) => void;
   removveTodo: (todoId: string) => void;
-  toggleTodo: (todo: TodoItem) => void;
-  updateTodo: (todo: TodoItem) => void;
+  toggleTodo: (todo: ITodoItem) => void;
+  updateTodo: (todo: ITodoItem) => void;
 }
 
 const useTodoStore = create(
@@ -30,7 +30,7 @@ const useTodoStore = create(
             },
           ],
         })),
-      updateTodo: (todo: TodoItem) => {
+      updateTodo: (todo: ITodoItem) => {
         console.log("update", todo);
         set((state) => ({
           todos: state.todos.map((_todo) => ({
@@ -43,7 +43,7 @@ const useTodoStore = create(
         set((state) => ({
           todos: state.todos.filter((todo) => todo.id !== todoId),
         })),
-      toggleTodo: (todo: TodoItem) =>
+      toggleTodo: (todo: ITodoItem) =>
         set((state) => ({
           todos: state.todos.map(
             (_todo) => ({
@@ -59,16 +59,6 @@ const useTodoStore = create(
   )
 );
 
-// const useUserStore = create(
-//   persist<userState>(
-//     (set) => ({
-//       userId: 0,
-//       setUserId: (newUserId) => set({ userId: newUserId }),
-//     }),
-//     { name: "userIdStorage" }
-//   )
-// );
-
 export default useTodoStore;
 
-export type { ItodoState, TodoItem };
+export type { ItodoState, ITodoItem };
