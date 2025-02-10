@@ -2,21 +2,21 @@ import { create } from "zustand";
 import { v4 as uuidv4 } from "uuid";
 import { persist } from "zustand/middleware";
 
-interface ITodoItem {
+interface todoItemProps {
   id: string;
   text: string;
   isCompleted: boolean;
 }
-interface ItodoState {
-  todos: ITodoItem[];
+interface todoState {
+  todos: todoItemProps[];
   addTodo: (newTodo: string) => void;
   removveTodo: (todoId: string) => void;
-  toggleTodo: (todo: ITodoItem) => void;
-  updateTodo: (todo: ITodoItem) => void;
+  toggleTodo: (todo: todoItemProps) => void;
+  updateTodo: (todo: todoItemProps) => void;
 }
 
 const useTodoStore = create(
-  persist<ItodoState>(
+  persist<todoState>(
     (set) => ({
       todos: [],
       addTodo: (newTodo) =>
@@ -30,8 +30,7 @@ const useTodoStore = create(
             },
           ],
         })),
-      updateTodo: (todo: ITodoItem) => {
-        console.log("update", todo);
+      updateTodo: (todo: todoItemProps) => {
         set((state) => ({
           todos: state.todos.map((_todo) => ({
             ..._todo,
@@ -43,13 +42,15 @@ const useTodoStore = create(
         set((state) => ({
           todos: state.todos.filter((todo) => todo.id !== todoId),
         })),
-      toggleTodo: (todo: ITodoItem) =>
+      toggleTodo: (target: todoItemProps) =>
         set((state) => ({
           todos: state.todos.map(
             (_todo) => ({
               ..._todo,
               isCompleted:
-                _todo.id === todo.id ? !todo.isCompleted : _todo.isCompleted,
+                _todo.id === target.id
+                  ? !target.isCompleted
+                  : _todo.isCompleted,
             }),
             false
           ),
@@ -61,4 +62,4 @@ const useTodoStore = create(
 
 export default useTodoStore;
 
-export type { ItodoState, ITodoItem };
+export type { todoState, todoItemProps };

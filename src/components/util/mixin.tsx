@@ -1,11 +1,9 @@
 type TRem = {
-    value: number;
-    standardValue?: number;
-}
+  value: number;
+  standardValue?: number;
+};
 
-export const rem = ({value, standardValue = 14}:TRem)=> {
-    let remSize = null;
-
-    remSize = value / standardValue;
-    return remSize;
-}
+export const rem = ({ value, standardValue = 16 }: TRem) => {
+  const remSize: number = value / standardValue;
+  return remSize;
+};

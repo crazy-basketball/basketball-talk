@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import useTodoStore from "../store/todoStore";
 
 const Channel = () => {
@@ -8,7 +8,7 @@ const Channel = () => {
   const [updateValue, setUpdateValue] = useState("");
   const [updateState, setUpdateState] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     addTodo(todoValue);
     setTodoValue("");
