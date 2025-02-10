@@ -18,6 +18,9 @@ export default tseslint.config(
       "react-refresh": reactRefresh,
     },
     rules: {
+      "react/react-in-jsx-scope": "off", // react 17버전에선 react import 불필요
+      "react/jsx-filename-extension": "off",
+      "react/jsx-props-no-spreading": "off",
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": [
         "warn",
